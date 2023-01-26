@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
 import AppLayout from '../components/AppLayout'
 import Button from '../components/Button'
 import GitHub from '../components/Icons/GitHub'
@@ -9,7 +8,6 @@ import { loginWithGithub } from '../firebase/client'
 import { colors } from '../styles/theme'
 
 export default function Home() {
-  const router = useRouter()
 
   const handleClick = () => {
     loginWithGithub()
