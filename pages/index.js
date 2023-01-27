@@ -1,16 +1,23 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AppLayout from '../components/AppLayout'
 import Button from '../components/Button'
 import GitHub from '../components/Icons/GitHub'
-import { loginWithGithub } from '../firebase/client'
+import { loginWithGithub, onAuthStateChanged } from '../firebase/client'
 import { colors } from '../styles/theme'
 
 export default function Home() {
 
   const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    onAuthStateChanged(user => setUser(user))
+  
+  }, [])
+  
+
 
   const handleClick = () => {
 
