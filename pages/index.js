@@ -1,14 +1,26 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
+import { useState } from 'react'
 import AppLayout from '../components/AppLayout'
 import Button from '../components/Button'
 import GitHub from '../components/Icons/GitHub'
+import { loginWithGithub } from '../firebase/client'
 import { colors } from '../styles/theme'
 
 export default function Home() {
-  const router = useRouter()
+
+  const [user, setUser] = useState(null)
+
+  const handleClick = () => {
+
+    loginWithGithub().then(userData=>{
+      setUser(userData)
+      console.log(userData)
+    })
+
+  }  
+
 
   return (
     <>
@@ -24,10 +36,19 @@ export default function Home() {
           <h2>Talk about development <br/>with developers</h2>
 
           <div>
-            <Button>
-              <GitHub fill='#ffffff' width={24} height={24}/>
-              Login with Github
-            </Button>
+
+            { !!!user ?
+              <Button onClick={ handleClick }>
+                <GitHub fill='#ffffff' width={24} height={24}/>
+                Login with Github
+              </Button>
+              :
+              <>
+                <p>Hola {user.displayName}</p>
+                <img className="profile-picture" src={ user.photoURL } width={120} height={120} alt="profile picture"/>
+              </>
+}
+
           </div>
 
         </section>
@@ -57,8 +78,16 @@ export default function Home() {
           font-size: 21px;
           margin: 0;
         }
-
-
+        P{
+          color: ${ colors.primary};
+          font-size: 15px;
+          font-weight: 700;
+          paddin
+        }
+        .profile-picture{
+          border-radius: 999px;
+          border: 4px solid ${ colors.secondary }
+        }
       `}</style>
     </>
   )
