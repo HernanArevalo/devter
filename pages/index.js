@@ -10,7 +10,7 @@ import { colors } from '../styles/theme'
 
 export default function Home() {
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(undefined)
 
   useEffect(() => {
     onAuthStateChanged(user => setUser(user))
@@ -44,17 +44,18 @@ export default function Home() {
 
           <div>
 
-            { !!!user ?
+            { user === null &&
               <Button onClick={ handleClick }>
                 <GitHub fill='#ffffff' width={24} height={24}/>
                 Login with Github
               </Button>
-              :
-              <>
-                <p>Hola {user.displayName}</p>
-                <img className="profile-picture" src={ user.photoURL } width={120} height={120} alt="profile picture"/>
-              </>
-}
+            }
+            { user && user.uid &&
+                <>
+                  <p>Hola {user.displayName}</p>
+                  <img className="profile-picture" src={ user.photoURL } width={120} height={120} alt="profile picture"/>
+                </>
+            }
 
           </div>
 
