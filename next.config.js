@@ -7,10 +7,13 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
         port: '',
-        pathname: '/account123/**',
-      },
+        pathname: ''
+      }
     ],
+    domains: ['avatars.githubusercontent.com']
+    
   },
+
 }
 
 module.exports = nextConfig

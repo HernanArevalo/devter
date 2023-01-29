@@ -16,6 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const mapUserFromFirebaseAuth = ( user ) => {
+  console.log(user)
   const { displayName, photoURL, uid } = user
 
   return {
@@ -30,9 +31,13 @@ export const onAuthStateChanged = (onChange) => {
   const authenticate = getAuth();
 
   return onAuthStateChangedFB(authenticate, user =>{
+    if (user != null){
+      const normalizedUser = mapUserFromFirebaseAuth(user)
+      onChange( normalizedUser )
 
-    const normalizedUser = mapUserFromFirebaseAuth(user)
-    onChange( normalizedUser )
+    }else{
+      onChange(null)
+    }
   })
 
 }
@@ -45,8 +50,5 @@ export const loginWithGithub = async() => {
     const authenticate = getAuth();
 
     return signInWithPopup(authenticate, provider)
-      .then( ({ user }) => mapUserFromFirebaseAuth( user ) )
-      .catch(err =>{
-        console.error( err )
-      })
+
 }

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import AppLayout from '../components/AppLayout'
+import Avatar from '../components/Avatar'
 import Button from '../components/Button'
 import GitHub from '../components/Icons/GitHub'
 import { loginWithGithub, onAuthStateChanged } from '../firebase/client'
@@ -21,10 +22,13 @@ export default function Home() {
 
   const handleClick = () => {
 
-    loginWithGithub().then(userData=>{
-      setUser(userData)
-      console.log(userData)
-    })
+    loginWithGithub()
+      .then( userData =>{
+          setUser( userData )
+      })
+      .catch (err => {
+        console.log( err )
+      })
 
   }  
 
@@ -53,7 +57,7 @@ export default function Home() {
             { user && user.uid &&
                 <>
                   <p>Hola {user.displayName}</p>
-                  <img className="profile-picture" src={ user.photoURL } width={120} height={120} alt="profile picture"/>
+                  <Avatar src={ user.photoURL } width={120} height={120} alt={user.displayName}/>
                 </>
             }
 
