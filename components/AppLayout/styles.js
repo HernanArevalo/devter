@@ -36,6 +36,7 @@ export default css`
         border-radius: 10px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
         height: 100%;
+        position: relative;
         width: 100%;
     }
 

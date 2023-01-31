@@ -16,7 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const mapUserFromFirebaseAuth = ( user ) => {
-  console.log(user)
+
   const { displayName, photoURL, uid } = user
 
   return {
@@ -31,13 +31,10 @@ export const onAuthStateChanged = (onChange) => {
   const authenticate = getAuth();
 
   return onAuthStateChangedFB(authenticate, user =>{
-    if (user != null){
-      const normalizedUser = mapUserFromFirebaseAuth(user)
+
+      const normalizedUser = user ? mapUserFromFirebaseAuth(user) : null
       onChange( normalizedUser )
 
-    }else{
-      onChange(null)
-    }
   })
 
 }

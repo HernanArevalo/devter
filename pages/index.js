@@ -6,6 +6,7 @@ import AppLayout from '../components/AppLayout'
 import Avatar from '../components/Avatar'
 import Button from '../components/Button'
 import GitHub from '../components/Icons/GitHub'
+import Logo from '../components/Icons/Logo'
 import { loginWithGithub, onAuthStateChanged } from '../firebase/client'
 import { colors } from '../styles/theme'
 
@@ -42,7 +43,7 @@ export default function Home() {
 
       <AppLayout>
         <section>
-          <Image src='/devter-logo.png' alt='logo' width={120} height={120}/>
+          <Logo width="100"/>
           <h1>Devter</h1>
           <h2>Talk about development <br/>with developers</h2>
 
@@ -54,12 +55,13 @@ export default function Home() {
                 Login with Github
               </Button>
             }
-            { user && user.uid &&
+            { user && user.photoURL && (
                 <>
                   <Avatar src={ user.photoURL } width={120} height={120} alt={user.displayName}/>
                   <p>{user.displayName}</p>
                 </>
-            }
+
+            )}
 
           </div>
 
@@ -82,17 +84,18 @@ export default function Home() {
 
         h1{
           font-weight: 800;
-          color: ${ colors.secondary };
+          font-size: 32px;
+          color: ${ colors.primary };
           margin-bottom: 16px;
         }
 
         h2{
-          color: ${ colors.primary };
+          color: ${ colors.secondary };
           font-size: 21px;
           margin: 0;
         }
         P{
-          color: ${ colors.secondary};
+          color: ${ colors.black };
           font-size: 15px;
           font-weight: 700;
           paddin
