@@ -46,7 +46,7 @@ export default function Home() {
           <h1>Devter</h1>
           <h2>Talk about development <br/>with developers</h2>
 
-          <div>
+          <div className='github-login'>
 
             { user === null &&
               <Button onClick={ handleClick }>
@@ -56,8 +56,8 @@ export default function Home() {
             }
             { user && user.uid &&
                 <>
-                  <p>Hola {user.displayName}</p>
                   <Avatar src={ user.photoURL } width={120} height={120} alt={user.displayName}/>
+                  <p>{user.displayName}</p>
                 </>
             }
 
@@ -77,28 +77,35 @@ export default function Home() {
           place-items: center;
           place-content: center;
           height: 100%;
+          
         }
 
         h1{
           font-weight: 800;
-          color: ${ colors.primary };
+          color: ${ colors.secondary };
           margin-bottom: 16px;
         }
 
         h2{
-          color: ${ colors.secondary };
+          color: ${ colors.primary };
           font-size: 21px;
           margin: 0;
         }
         P{
-          color: ${ colors.primary};
+          color: ${ colors.secondary};
           font-size: 15px;
           font-weight: 700;
           paddin
         }
-        .profile-picture{
-          border-radius: 999px;
-          border: 4px solid ${ colors.secondary }
+
+
+        .github-login{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 40px
         }
       `}</style>
     </>
