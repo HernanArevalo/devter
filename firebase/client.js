@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged as onAuthStateChangedFB } from "firebase/auth"
-
+import { getFirestore, collection, addDoc, Timestamp  } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOd3ekmCaUX03BsPuIFYzR1qwxTnhT4P8",
@@ -12,8 +12,9 @@ const firebaseConfig = {
   measurementId: "G-1GNLMZ8H9K"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 
 const mapUserFromFirebaseAuth = ( user ) => {
 
@@ -47,5 +48,25 @@ export const loginWithGithub = async() => {
     const authenticate = getAuth();
 
     return signInWithPopup(authenticate, provider)
+
+}
+
+export const addDevit = async({avatar,content,userId,userName})  => {
+
+  try {
+    const docRef = await addDoc(collection(db, "devits"), {
+      avatar,
+      content,
+      userId,
+      userName,
+      //createdAt: new Date().getTime(),
+      createdAt: Timestamp.fromDate(new Date()),
+      likesCount: 0,
+      sharedCount: 0,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 
 }

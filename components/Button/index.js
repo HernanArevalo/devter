@@ -1,10 +1,12 @@
 import { colors } from "../../styles/theme";
 
-export default function Button ( { children, onClick } ) {
+export default function Button ( { children, disabled, onClick } ) {
 
     return (
         <>
-            <button onClick={ onClick }>
+            <button onClick={ onClick }
+                    disabled={disabled}
+            >
                 {children}
             </button>
 
@@ -24,6 +26,10 @@ export default function Button ( { children, onClick } ) {
                 }
                 button:hover{
                     opacity: .7
+                }
+                button:disabled{
+                    opacity: 0.3;
+                    cursor: default;
                 }
             `}</style>
         </>
