@@ -1,12 +1,22 @@
+import { Router, useRouter } from "next/router";
 import { useState } from "react";
 import AppLayout from "../../../components/AppLayout";
 import Button from "../../../components/Button";
 import { addDevit } from "../../../firebase/client";
 import useUser from "../../../hooks/useUser";
 
+const COMPOSE_STATES = {
+    USER_NOT_KNOWN: 0,
+    LOADING: 1,
+    SUCCESS: 2,
+    ERROR: -1
+}
+
 export default function ComposeTweet() {
 
+    const router = useRouter()
     const user = useUser()
+    const [status, setStatus] = useState( COMPOSE_STATES.USER_NOT_KNOWN )
     const [message, setMessage] = useState('')
 
     const handleChange = (e) => {
@@ -17,14 +27,25 @@ export default function ComposeTweet() {
     const handleSubmit = (e) => {
         e.preventDefault()
         
+        setStatus( COMPOSE_STATES.LOADING )
         addDevit({
             avatar: user.photoURL,
             content: message,
             userId: user.uid,
             userName: user.displayName
+        }).then(() => {
+            Router.push('./home')
+            setStatus( COMPOSE_STATES.SUCCESS )
+        }).catch((e) =>{
+            console.error(e)
+            setStatus( COMPOSE_STATES.ERROR )
         })
 
+        setMessage('')
+
     }
+
+    const isButtonDisabled = !message.length || status === COMPOSE_STATES.LOADING
 
     return (
         <>
@@ -34,7 +55,7 @@ export default function ComposeTweet() {
                               onChange={ handleChange }>
                     </textarea>
                     <div>
-                        <Button disabled={ message.length === 0 }>Devitear</Button>
+                        <Button disabled={ isButtonDisabled }>Devitear</Button>
                     </div>
                 </form>
             </AppLayout>

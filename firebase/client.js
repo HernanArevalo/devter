@@ -70,3 +70,7 @@ export const addDevit = async({avatar,content,userId,userName})  => {
   }
 
 }
+
+export const fetchLatestDevits = async()=>{
+  
+}
