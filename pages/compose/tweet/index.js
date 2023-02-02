@@ -34,14 +34,14 @@ export default function ComposeTweet() {
             userId: user.uid,
             userName: user.displayName
         }).then(() => {
-            Router.push('./home')
+            router.push('/home')
             setStatus( COMPOSE_STATES.SUCCESS )
+            setMessage('')
         }).catch((e) =>{
             console.error(e)
             setStatus( COMPOSE_STATES.ERROR )
         })
 
-        setMessage('')
 
     }
 

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged as onAuthStateChangedFB } from "firebase/auth"
-import { getFirestore, collection, addDoc, Timestamp  } from "firebase/firestore";
+import { getFirestore, collection, addDoc, Timestamp, getDocs  } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOd3ekmCaUX03BsPuIFYzR1qwxTnhT4P8",
@@ -59,7 +59,6 @@ export const addDevit = async({avatar,content,userId,userName})  => {
       content,
       userId,
       userName,
-      //createdAt: new Date().getTime(),
       createdAt: Timestamp.fromDate(new Date()),
       likesCount: 0,
       sharedCount: 0,
@@ -72,5 +71,27 @@ export const addDevit = async({avatar,content,userId,userName})  => {
 }
 
 export const fetchLatestDevits = async()=>{
+
+  const devits = []
   
+  await getDocs(collection(db, "devits"))
+    .then( snapshot =>{
+        snapshot.forEach(doc=>{
+          
+          const data = doc.data()
+          const id = doc.id
+          const {createdAt} = data
+          
+          const date = new Date(createdAt.seconds * 1000)
+          const normalizeCreatedAt = new Intl.DateTimeFormat('es-ES').format(date).toString()
+
+          devits.push({
+            ...data,
+            id,
+            createdAt: normalizeCreatedAt
+          })
+        })
+    })
+  return devits
+    
 }
