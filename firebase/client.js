@@ -70,6 +70,9 @@ export const addDevit = async({avatar,content,userId,userName})  => {
 
 }
 
+
+
+
 export const fetchLatestDevits = async()=>{
 
   const devits = []
@@ -81,14 +84,14 @@ export const fetchLatestDevits = async()=>{
           const data = doc.data()
           const id = doc.id
           const {createdAt} = data
-          
-          const date = new Date(createdAt.seconds * 1000)
-          const normalizeCreatedAt = new Intl.DateTimeFormat('es-ES').format(date).toString()
 
+          
+
+          
           devits.push({
             ...data,
             id,
-            createdAt: normalizeCreatedAt
+            createdAt: +createdAt.toDate()
           })
         })
     })
