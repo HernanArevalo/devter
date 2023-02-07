@@ -2,6 +2,7 @@ import Avatar from "components/Avatar"
 import { useTimeAgo } from "../../hooks/useTimeAgo"
 
 export default function Devit({ avatar, content, createdAt, id, likesCount, userId, userName }) {
+  
   const timeAgo = useTimeAgo(createdAt)
 
   return (

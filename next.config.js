@@ -6,14 +6,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
-        port: '',
-        pathname: ''
       },
       {
         protocol: 'https',
         hostname: 'pbs.twimg.com',
-        port: '',
-        pathname: ''
       }
     ],
     domains: ['avatars.githubusercontent.com', 'pbs.twimg.com']

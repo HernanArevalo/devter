@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 
 const DATE_UNITS = [
     ['day', 86400],
@@ -22,9 +23,21 @@ const getDateDiffs = timestamp => {
 }
 
 export const useTimeAgo = (timestamp) => {
-    const { value, unit } = getDateDiffs( timestamp )
-    const rtf = new Intl.RelativeTimeFormat('es', {style:'short'})
+    const [timeago, setTimeago] = useState(()=>getDateDiffs( timestamp ))
+
+    useEffect(()=>{
+        const interval = setInterval(() => {
+            const newTimeAgo = getDateDiffs(timestamp)
+            setTimeago(newTimeAgo)
+        }, 1000);
+        
+        return () => clearInterval( interval )
+    }, [ timestamp ])
     
+    const rtf = new Intl.RelativeTimeFormat('es', {style:'short'})
+
+    const {value, unit} = timeago
+
     return rtf.format(value, unit)
 
 }

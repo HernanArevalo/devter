@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
+import { getStorage, ref } from "firebase/storage";
 import { getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged as onAuthStateChangedFB } from "firebase/auth"
-import { getFirestore, collection, addDoc, Timestamp, getDocs  } from "firebase/firestore";
+import { getFirestore, collection, addDoc, Timestamp, getDocs, orderBy, query  } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOd3ekmCaUX03BsPuIFYzR1qwxTnhT4P8",
@@ -71,30 +72,38 @@ export const addDevit = async({avatar,content,userId,userName})  => {
 }
 
 
-
-
 export const fetchLatestDevits = async()=>{
 
   const devits = []
   
-  await getDocs(collection(db, "devits"))
-    .then( snapshot =>{
-        snapshot.forEach(doc=>{
-          
-          const data = doc.data()
-          const id = doc.id
-          const {createdAt} = data
+  const ordersRef = collection(db, "devits");
+  const q = query(ordersRef, orderBy("createdAt", "desc"))
+  const querySnapshot = await getDocs(q);
 
-          
+  querySnapshot.forEach(doc => {
+    const data = doc.data()
 
-          
-          devits.push({
-            ...data,
-            id,
-            createdAt: +createdAt.toDate()
-          })
-        })
+    const id = doc.id
+    const {createdAt} = data
+
+    devits.push({
+      ...data,
+      id,
+      createdAt: +createdAt.toDate()
     })
+  })
+
+
   return devits
     
+}
+
+export const uploadImages = (file) => {
+  const storage = getStorage()
+
+  const imagesRef = ref(storage, `images/${file.name}`);
+
+  const task = imagesRef.put(file)
+  
+  return task
 }
