@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged as onAuthStateChangedFB } from "firebase/auth"
 import { getFirestore, collection, addDoc, Timestamp, getDocs, orderBy, query  } from "firebase/firestore";
 
@@ -99,11 +99,10 @@ export const fetchLatestDevits = async()=>{
 }
 
 export const uploadImages = (file) => {
+
   const storage = getStorage()
-
   const imagesRef = ref(storage, `images/${file.name}`);
-
-  const task = imagesRef.put(file)
+  const task = uploadBytes(imagesRef, file)
   
   return task
 }
