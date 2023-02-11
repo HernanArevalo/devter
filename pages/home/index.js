@@ -1,4 +1,3 @@
-import AppLayout from "components/AppLayout"
 import { useEffect, useState } from "react"
 import Devit from "components/Devit"
 import useUser from "../../hooks/useUser"
@@ -23,7 +22,6 @@ export default function HomePage() {
 
   return (
     <>
-      <AppLayout>
         <Head>
           <title>Inicio / Devter</title>
         </Head>
@@ -66,7 +64,6 @@ export default function HomePage() {
 
 
         </nav>
-      </AppLayout>
       
       <style jsx>{`
         header {

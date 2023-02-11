@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import AppLayout from "../../../components/AppLayout";
 import Avatar from "../../../components/Avatar";
 import Button from "../../../components/Button";
 import { addDevit, uploadImages } from "../../../firebase/client";
@@ -108,7 +107,6 @@ export default function ComposeTweet() {
 
     return (
         <>
-        <AppLayout>
             <Head>
                 <title>Crear un Devit / Devter</title>
             </Head>
@@ -133,7 +131,6 @@ export default function ComposeTweet() {
                 </form>
 
             </section>
-        </AppLayout>
 
         <style jsx>{`
             div {

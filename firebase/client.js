@@ -3,7 +3,7 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged as onAuthStateChangedFB } from "firebase/auth"
 import { getFirestore, collection, addDoc, Timestamp, getDocs, orderBy, query  } from "firebase/firestore";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAOd3ekmCaUX03BsPuIFYzR1qwxTnhT4P8",
   authDomain: "devter-8247b.firebaseapp.com",
   projectId: "devter-8247b",
