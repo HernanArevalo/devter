@@ -1,18 +1,21 @@
 import Avatar from "components/Avatar"
-import Link from "next/link"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import useDateTimeFormat from "../../hooks/useDateTimeFormat"
 import { useTimeAgo } from "../../hooks/useTimeAgo"
 
 export default function Devit({ avatar, content, createdAt, id, likesCount, userId, userName }) {
   
-  const timeAgo = useTimeAgo(createdAt)
+  const [timeAgo, setTimeAgo] = useState(useTimeAgo(createdAt))
+
+
+  
   const createdAtFormated = useDateTimeFormat(createdAt)
   const router = useRouter()
 
   const handleArticleClick = (e) => {
     e.preventDefault()
-    router.push("/status/[id]", `/status/${id}`)
+    router.push("/status/[id]",`/status/${id}`)
   }
 
   return (
@@ -24,9 +27,7 @@ export default function Devit({ avatar, content, createdAt, id, likesCount, user
         <section>
           <strong>{userName}</strong>
           <span> • </span>
-          <Link style={{textDecoration:'None'}} href={`/status/${id}`}>
-          <time title={createdAtFormated}>{timeAgo}</time>
-          </Link>
+          <time >{timeAgo}</time>
           <p>{content}</p>
         </section>
       </article>
@@ -36,6 +37,12 @@ export default function Devit({ avatar, content, createdAt, id, likesCount, user
           border-bottom: 1px solid #eee;
           display: flex;
           padding: 10px 15px;
+          cursor: pointer;
+          transition: .2s background-color ease-in-out;
+        }
+
+        article:hover {
+          background-color: #f5f8fa;
         }
 
         div {

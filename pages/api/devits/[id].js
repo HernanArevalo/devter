@@ -16,7 +16,17 @@ export default async(req,res) => {
     const docRef = doc(db, "devits", id);
     getDoc(docRef)
     .then(doc=>{
-        res.json(doc.data())
+
+        const data = doc.data()
+        const id = doc.id
+        const {createdAt} = data
+    
+        res.json({
+          ...data,
+          id,
+          createdAt: +createdAt.toDate()
+        })
+
 
     }).catch(()=>{
         res.status(404).end()

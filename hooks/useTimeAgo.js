@@ -34,7 +34,7 @@ export const useTimeAgo = (timestamp) => {
         return () => clearInterval( interval )
     }, [ timestamp ])
     
-    const rtf = new Intl.RelativeTimeFormat('es', {style:'short'})
+    const rtf = new Intl.RelativeTimeFormat('es', {style:'long'})
 
     const {value, unit} = timeago
 
