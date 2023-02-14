@@ -8,6 +8,7 @@ import { colors } from "../../styles/theme"
 import Home from "../../components/Icons/Home"
 import Search from "../../components/Icons/Search"
 import Head from "next/head"
+import Navbar from "../../components/Navbar"
 
 export default function HomePage() {
   const [timeline, setTimeline] = useState([])
@@ -44,29 +45,12 @@ export default function HomePage() {
             />
           ))}
         </section>
-        <nav>
-          <div className="nav-icon">
-            <Link href="/home" className=".nav-icon-a">
-                <Home width={32} height={32} stroke="#09f"/>
-            </Link>
 
-          </div>
-          <div className="nav-icon">
-            <Link href="/search">
-                <Search width={32} height={32} stroke="#09f"/>
-            </Link>
-
-          </div>
-          <div className="nav-icon">
-            <Link href="/compose/tweet">
-                <Create width={32} height={32} stroke="#09f"/>
-            </Link>
-          </div>
-
-
-        </nav>
+        <Navbar>
+        </Navbar>
       
       <style jsx>{`
+
         header {
           align-items: center;
           backdrop-filter: blur(1px);
@@ -88,37 +72,7 @@ export default function HomePage() {
           padding: 0 15px;
         }
 
-        nav {
-          background: #fff;
-          bottom: 0;
-          border-top: 1px solid #eee;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-          height: 49px;
-          position: sticky;
-          width: 100%;
-        }
-        .nav-icon{
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 36px;
-          width: 36px;
-        }
-        .nav-icon-a{
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .nav-icon:hover {
-          background: radial-gradient(#0099ff22 15%, transparent 16%);
-          background-size: 180px 180px;
-          background-position: center;
-        }
-        .nav-icon:hover > :global(svg) {
-          stroke: ${colors.primary};
-        }
+
       `}</style>
     </>
   )
