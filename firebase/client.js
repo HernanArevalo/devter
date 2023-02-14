@@ -4,15 +4,8 @@ import { getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged as onA
 import { getFirestore, collection, addDoc, Timestamp, getDocs, orderBy, query, onSnapshot  } from "firebase/firestore";
 
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyAOd3ekmCaUX03BsPuIFYzR1qwxTnhT4P8",
-  authDomain: "devter-8247b.firebaseapp.com",
-  projectId: "devter-8247b",
-  storageBucket: "devter-8247b.appspot.com",
-  messagingSenderId: "452023406433",
-  appId: "1:452023406433:web:cb7b55b53d4e062e087f20",
-  measurementId: "G-1GNLMZ8H9K"
-};
+export const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG)
+
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -87,8 +80,6 @@ export const mapDevitFromFirebaseToDevitObject = (doc) => {
 
 export const listenLatestDevits = (callback) => {
   
-  
-  
   onSnapshot(query(collection(db, "devits"), orderBy("createdAt", "desc")), 
   (querySnapshot) => {
     
@@ -96,7 +87,7 @@ export const listenLatestDevits = (callback) => {
     querySnapshot.forEach((doc) => {
       newsDevits.push(mapDevitFromFirebaseToDevitObject(doc))
     })
-    console.log('onSnapshot called')
+
     callback(newsDevits)
   })
 
