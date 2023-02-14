@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged as onAuthStateChangedFB } from "firebase/auth"
-import { getFirestore, collection, addDoc, Timestamp, getDocs, orderBy, query  } from "firebase/firestore";
+import { getFirestore, collection, addDoc, Timestamp, getDocs, orderBy, query, onSnapshot  } from "firebase/firestore";
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAOd3ekmCaUX03BsPuIFYzR1qwxTnhT4P8",
@@ -28,6 +29,7 @@ const mapUserFromFirebaseAuth = ( user ) => {
   }
 }
 
+
 export const onAuthStateChanged = (onChange) => {
 
   const authenticate = getAuth();
@@ -42,7 +44,6 @@ export const onAuthStateChanged = (onChange) => {
 }
 
 
-
 export const loginWithGithub = async() => {
 
     const provider = new GithubAuthProvider();
@@ -52,7 +53,8 @@ export const loginWithGithub = async() => {
 
 }
 
-export const addDevit = async({avatar,content,userId,userName})  => {
+
+export const addDevit = async( { avatar,content,userId,userName } )  => {
 
   try {
     const docRef = await addDoc(collection(db, "devits"), {
@@ -64,38 +66,57 @@ export const addDevit = async({avatar,content,userId,userName})  => {
       likesCount: 0,
       sharedCount: 0,
     });
-    console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 
 }
 
+export const mapDevitFromFirebaseToDevitObject = (doc) => {
 
-export const fetchLatestDevits = async()=>{
+  const data = doc.data()
+  const id = doc.id
+  const {createdAt} = data
 
-  const devits = []
+  return{
+    ...data,
+    id,
+    createdAt: +createdAt.toDate()
+  }
+}
+
+export const listenLatestDevits = (callback) => {
   
-  const ordersRef = collection(db, "devits");
-  const q = query(ordersRef, orderBy("createdAt", "desc"))
-  const querySnapshot = await getDocs(q);
-
-  querySnapshot.forEach(doc => {
-    const data = doc.data()
-    const id = doc.id
-    const {createdAt} = data
-
-    devits.push({
-      ...data,
-      id,
-      createdAt: +createdAt.toDate()
+  
+  
+  onSnapshot(query(collection(db, "devits"), orderBy("createdAt", "desc")), 
+  (querySnapshot) => {
+    
+    const newsDevits = [];
+    querySnapshot.forEach((doc) => {
+      newsDevits.push(mapDevitFromFirebaseToDevitObject(doc))
     })
+    console.log('onSnapshot called')
+    callback(newsDevits)
   })
 
-
-  return devits
-    
 }
+
+// export const fetchLatestDevits = async()=>{
+
+//   const devits = []
+
+//   await getDocs(query(collection(db, "devits"), orderBy("createdAt", "desc")))
+//     .then((docs) => {
+
+//       return docs.forEach((doc) => {
+//         devits.push( mapDevitFromFirebaseToDevitObject(doc) )
+//       })
+//     })
+//     listenLatestDevits('dasd')
+//     return devits
+    
+// }
 
 export const uploadImages = (file) => {
 

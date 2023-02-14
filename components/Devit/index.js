@@ -1,15 +1,13 @@
 import Avatar from "components/Avatar"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
 import useDateTimeFormat from "../../hooks/useDateTimeFormat"
-import { useTimeAgo } from "../../hooks/useTimeAgo"
+import useTimeAgo from "../../hooks/useTimeAgo"
 
 export default function Devit({ avatar, content, createdAt, id, likesCount, userId, userName }) {
-  
-  const [timeAgo, setTimeAgo] = useState(useTimeAgo(createdAt))
 
+  const timeago = useTimeAgo(createdAt)
 
-  
+ 
   const createdAtFormated = useDateTimeFormat(createdAt)
   const router = useRouter()
 
@@ -27,7 +25,7 @@ export default function Devit({ avatar, content, createdAt, id, likesCount, user
         <section>
           <strong>{userName}</strong>
           <span> • </span>
-          <time >{timeAgo}</time>
+          <time title={createdAtFormated}>{timeago}</time>
           <p>{content}</p>
         </section>
       </article>

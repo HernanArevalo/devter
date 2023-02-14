@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Devit from "components/Devit"
 import useUser from "../../hooks/useUser"
-import { fetchLatestDevits } from "../../firebase/client"
+import { listenLatestDevits } from "../../firebase/client"
 import Link from "next/link"
 import Create from "../../components/Icons/Create"
 import { colors } from "../../styles/theme"
@@ -13,11 +13,12 @@ export default function HomePage() {
   const [timeline, setTimeline] = useState([])
   const user = useUser()
 
-
   useEffect(() => {
-    user && fetchLatestDevits()
-      .then(setTimeline)
-    
+    let unsubscribe
+    if (user) {
+      unsubscribe = listenLatestDevits(setTimeline)
+    }
+    return () => unsubscribe && unsubscribe()
   }, [user])
 
   return (
@@ -29,7 +30,7 @@ export default function HomePage() {
           <h2>Inicio</h2>
         </header>
         <section>
-          {timeline?.map(( { avatar, content, createdAt,id, likesCount, userId, userName } ) => (
+          {timeline.map(( { avatar, content, createdAt,id, likesCount, userId, userName } ) => (
             <Devit
             key={ id }
             avatar={avatar}
