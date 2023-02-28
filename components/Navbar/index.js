@@ -9,6 +9,11 @@ export default function Navbar () {
     <>
         <nav>
           <div className="nav-icon">
+            <Link href="/compose/tweet">
+                <Create width={32} height={32} stroke="#09f"/>
+            </Link>
+          </div>
+          <div className="nav-icon">
             <Link href="/home" className=".nav-icon-a">
                 <Home width={32} height={32} stroke="#09f"/>
             </Link>
@@ -19,11 +24,6 @@ export default function Navbar () {
                 <Search width={32} height={32} stroke="#09f"/>
             </Link>
 
-          </div>
-          <div className="nav-icon">
-            <Link href="/compose/tweet">
-                <Create width={32} height={32} stroke="#09f"/>
-            </Link>
           </div>
 
 

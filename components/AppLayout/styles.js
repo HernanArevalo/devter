@@ -3,14 +3,14 @@ import css from 'styled-jsx/css'
 import { breakpoints, colors, fonts } from '../../styles/theme'
 import { addOpacityToColor } from '../../styles/utils'
 
-const backgroundColor = addOpacityToColor(colors.primary, 0.3)
+const backgroundColor = addOpacityToColor(colors.primary, 0.5)
 
 export const globalStyles = css.global`
     html,
     body {
         background-image: 
-        radial-gradient(${ backgroundColor } 1px, #fdfdfd 1px),
-        radial-gradient(${ backgroundColor } 1px, #fdfdfd 1px);
+        radial-gradient(#fdfdfd 2px, ${ backgroundColor } 2px),
+        radial-gradient(${ colors.primary } 2px, #fdfdfd 2px);
         background-position: 0 0, 25px 25px;
         background-size: 50px 50px;
         padding: 0;
