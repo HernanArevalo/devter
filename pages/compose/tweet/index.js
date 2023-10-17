@@ -5,6 +5,7 @@ import Avatar from "../../../components/Avatar";
 import Button from "../../../components/Button";
 import { addDevit, uploadImages } from "../../../firebase/client";
 import useUser from "../../../hooks/useUser";
+import Navbar from "../../../components/Navbar";
 
 const COMPOSE_STATES = {
     USER_NOT_KNOWN: 0,
@@ -131,6 +132,7 @@ export default function ComposeTweet() {
                 </form>
 
             </section>
+            <Navbar />
 
         <style jsx>{`
             div {
@@ -155,6 +157,7 @@ export default function ComposeTweet() {
             width: 100%;
             padding: 15px;
             gap: 15px;
+            height: 100%;
             
             }
 

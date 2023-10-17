@@ -6,7 +6,7 @@ export default function SearchPage () {
         <>
         <div>
             <p>
-                Soon!
+                SOON!
             </p>
 
         </div>

@@ -46,8 +46,7 @@ export default function HomePage() {
           ))}
         </section>
 
-        <Navbar>
-        </Navbar>
+        <Navbar />
       
       <style jsx>{`
 

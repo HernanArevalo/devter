@@ -1,13 +1,19 @@
 import Devit from "../../components/Devit"
+import Navbar from "../../components/Navbar"
 
 export default function DevitPage (props) {
 
     return (
         <>
+            <div className="devit-id-container">
+                <Devit {...props}/>
+            </div>
+            <Navbar />
 
-            <Devit {...props}/>
             <style jsx>{`
-            
+                .devit-id-container{
+                    height: 100%;
+                }
             `}</style>
         </>
     )
