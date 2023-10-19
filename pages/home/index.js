@@ -49,7 +49,6 @@ export default function HomePage() {
         <Navbar />
       
       <style jsx>{`
-
         header {
           align-items: center;
           backdrop-filter: blur(1px);
@@ -70,7 +69,6 @@ export default function HomePage() {
           font-weight: 800;
           padding: 0 15px;
         }
-
 
       `}</style>
     </>
