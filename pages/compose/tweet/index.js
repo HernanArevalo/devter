@@ -37,7 +37,6 @@ export default function ComposeTweet() {
     
     const [drag, setDrag] = useState(DRAG_IMAGE_STATES.NONE)
     const [task, setTask] = useState(null)
-    const [imgURL, setImgURL] = useState(null)
 
     useEffect(()=>{
         if(task){
