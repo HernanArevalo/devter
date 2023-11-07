@@ -1,4 +1,4 @@
-import Avatar from "components/Avatar"
+import Avatar from "../../components/Avatar"
 import { useRouter } from "next/router"
 import useDateTimeFormat from "../../hooks/useDateTimeFormat"
 import useTimeAgo from "../../hooks/useTimeAgo"

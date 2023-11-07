@@ -1,27 +1,17 @@
 {
-  "name": "22-devter",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "start": "next start"
   },
   "dependencies": {
-    "@next/font": "13.1.5",
-    "eslint": "8.32.0",
-    "eslint-config-next": "13.1.5",
-    "firebase": "^9.16.0",
-    "firebase-admin": "^11.5.0",
-    "next": "13.1.5",
+    "firebase": "^10.5.2",
+    "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
-  "devDependencies": {
-    "standard": "^17.0.0"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+  "engines": {
+    "node": ">=18"
   }
 }

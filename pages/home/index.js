@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import Devit from "components/Devit"
 import useUser from "../../hooks/useUser"
 import { listenLatestDevits } from "../../firebase/client"
 import Head from "next/head"
 import Navbar from "../../components/Navbar"
+import Devit from "../../components/Devit"
 
 export default function HomePage() {
   const [timeline, setTimeline] = useState([])

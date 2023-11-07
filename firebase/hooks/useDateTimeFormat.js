@@ -1,4 +1,4 @@
-import { DEFAULT_LANGUAGE } from "../constants/locale"
+import { DEFAULT_LANGUAGE } from "constants/locale"
 
 const isDateTimeFormatSupported =
   typeof Intl !== "undefined" && Intl.DateTimeFormat
